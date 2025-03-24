@@ -12,7 +12,7 @@
 notify() { notify-send -a "Application Updater" "$1" && echo "$1"; }
 download_notify() {
         cd ~/Applications || exit
-        if [[ -f $(basename "${urls[0]}") ]] && [[ $1 != "Ryujinx" ]]  && [[ $1 != "Citron" ]] && [[ $1 != "sudachi" ]] && [[ $1 != "Cemu" ]] && [[ $1 != "Panda3DS" ]] && [[ $1 != "DolphinDev" ]] && [[ $1 != "RMG" ]] && [[ $1 != "melonDS" ]] && [[ $1 != "SkyEmu" ]] && [[ $1 != "mGBAdev" ]] && [[ $1 != "Lime3DS" ]] && [[ $1 != "mandarine" ]] && [[ $1 != "citraPMK" ]] && [[ $1 != "GearBoy" ]] && [[ $1 != "bsnes" ]] && [[ $1 != "snes9x" ]]; then
+        if [[ -f $(basename "${urls[0]}") ]] && [[ $1 != "Ryujinx" ]]  && [[ $1 != "Citron" ]] && [[ $1 != "sudachi" ]] && [[ $1 != "Cemu" ]] && [[ $1 != "Panda3DS" ]] && [[ $1 != "DolphinDev" ]] && [[ $1 != "RMG" ]] && [[ $1 != "melonDS" ]] && [[ $1 != "SkyEmu" ]] && [[ $1 != "mGBAdev" ]] && [[ $1 != "azahar" ]] && [[ $1 != "mandarine" ]] && [[ $1 != "gearboy" ]] && [[ $1 != "bsnes" ]] && [[ $1 != "snes9x" ]]; then
                 notify "Already up to date: $1"
         else
                 notify "Updating: $1"
@@ -47,11 +47,11 @@ download_notify() {
                         mGBAdev)
                                 curl -L -o ~/Applications/mGBAdev.AppImage -z ~/Applications/mGBAdev.AppImage https://s3.amazonaws.com/mgba/mGBA-build-latest-appimage-x64.appimage && chmod +x ~/Applications/mGBAdev.AppImage
                                 ;;
-                        Lime3DS)
-                                [ -d "$HOME/Applications/Lime3DS" ] || mkdir -p "$HOME/Applications/Lime3DS" && curl -L -o ~/Applications/Lime3DS.tar.gz -z ~/Applications/Lime3DS.tar.gz "${urls[0]}" && tar xf Lime3DS.tar.gz -C ~/Applications/Lime3DS --strip-components=1 && chmod +x ~/Applications/Lime3DS/lime3ds-cli.AppImage ~/Applications/Lime3DS/lime3ds-gui.AppImage ~/Applications/Lime3DS/lime3ds-room.AppImage
+                        azahar)
+                                [ -d "$HOME/Applications/azahar" ] || mkdir -p "$HOME/Applications/azahar" && curl -L -o ~/Applications/azahar.tar.gz -z ~/Applications/azahar.tar.gz "${urls[0]}" && tar xf azahar.tar.gz -C ~/Applications/azahar --strip-components=1 && chmod +x ~/Applications/azahar/azahar.AppImage ~/Applications/azahar/azahar-room.AppImage
                                 ;;
                         mandarine)
-                                [ -d "$HOME/Applications/mandarine" ] || mkdir -p "$HOME/Applications/mandarine" && curl -s -L -o ~/Applications/linux-appimage.zip -z ~/Applications/linux-appimage.zip https://nightly.link/mandarine3ds/mandarine/workflows/build/master/linux-appimage.zip && 7z x ~/Applications/linux-appimage.zip -y && mv -f ~/Applications/mandarine*.tar.gz ~/Applications/mandarine.tar.gz && tar xf ~/Applications/mandarine.tar.gz -C ~/Applications/mandarine --strip-components=1 && rm -f ~/Applications/mandarine.tar.gz && chmod +x ~/Applications/mandarine/mandarine-cli.AppImage ~/Applications/mandarine/mandarine-gui.AppImage ~/Applications/mandarine/mandarine-room.AppImage
+                                [ -d "$HOME/Applications/mandarine" ] || mkdir -p "$HOME/Applications/mandarine" && curl -s -L -o ~/Applications/linux-appimage.zip -z ~/Applications/linux-appimage.zip https://nightly.link/mandarine3ds/mandarine/workflows/build/master/linux-appimage.zip && 7z x ~/Applications/linux-appimage.zip -y && mv -f ~/Applications/mandarine*.tar.gz ~/Applications/mandarine.tar.gz && tar xf ~/Applications/mandarine.tar.gz -C ~/Applications/mandarine --strip-components=1 && rm -f ~/Applications/mandarine.tar.gz && chmod +x ~/Applications/mandarine/mandarine.AppImage ~/Applications/mandarine/mandarine-qt.AppImage ~/Applications/mandarine/mandarine-room.AppImage
                                 ;; 
                         bsnes)
                                 curl -L -o ~/Applications/bsnes.zip -z ~/Applications/bsnes.zip "${urls[0]}" && 7z x bsnes.zip -o* -y && chmod +x ~/Applications/bsnes/bsnes-nightly/bsnes
@@ -59,8 +59,8 @@ download_notify() {
                         sudachi)
                                 curl -L -o ~/Applications/sudachi.7z -z ~/Applications/sudachi.7z "${urls[0]}" && 7z x sudachi.7z -o* -y && chmod +x ~/Applications/sudachi/sudachi ~/Applications/sudachi/sudachi-cmd ~/Applications/sudachi/tzdb2nx
                                 ;;
-                        GearBoy)
-                                curl -L -o ~/Applications/GearBoy.zip -z ~/Applications/GearBoy.zip "${urls[0]}" && 7z x GearBoy.zip -o* -y && chmod +x ~/Applications/GearBoy/gearboy
+                        gearboy)
+                                curl -L -o ~/Applications/gearboy.zip -z ~/Applications/gearboy.zip "${urls[0]}" && 7z x gearboy.zip -o* -y && chmod +x ~/Applications/gearboy/gearboy
                                 ;;
                         *)
                                 curl -s -L -o ~/Applications/"$(basename "${urls[0]}")" -z ~/Applications/"$(basename "${urls[0]}")" "${urls[0]}" && chmod +x ~/Applications/"$(basename "${urls[0]}")"
@@ -127,17 +127,17 @@ download_notify mGBAdev
 #------------
 download_notify mandarine
 
-#Lime3DS
+#azahar
 #------------
-mapfile -t urls < <(curl -s -H "Accept: application/vnd.github+json" -G -d 'per_page=1' https://api.github.com/repos/Lime3DS/Lime3DS/releases | \
+mapfile -t urls < <(curl -s -H "Accept: application/vnd.github+json" -G -d 'per_page=1' https://api.github.com/repos/azahar-emu/azahar/releases | \
         jq -r '.[].assets[] | select(.browser_download_url | test("appimage")) | .browser_download_url')
-download_notify Lime3DS
+download_notify azahar
 
-#GearBoy
+#gearboy
 #------------
 mapfile -t url < <(curl -s -H "Accept: application/vnd.github+json" -G -d 'per_page=1' https://api.github.com/repos/drhelius/Gearboy/releases | \
         jq -r '.[].assets[] | select(.browser_download_url | test("ubuntu")) | .browser_download_url')
-download_notify Gearboy
+download_notify gearboy
 
 #bsnes
 #------------
