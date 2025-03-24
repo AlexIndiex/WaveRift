@@ -1,12 +1,12 @@
 # WaveRift Noob Guides
 
-A collection of guides, that range from an autoinstaller, recommended peripheral hardware, to emulation and more...
+A collection of guides, that range from an autofetcher, recommended peripheral hardware, to emulation and more...
 
 [Quick emulators backup link](https://drive.google.com/drive/folders/1Yb-pRJDzffE7aNfqEPYQyTOFLMSabsXI)
 
-## WaveRift: BETA Emulators autoinstall script for Linux users
+## WaveRift: BETA Emulators autofetcher script for Linux users
 
-The `update.sh` is a script to install and update `Dolphin Developer`, `Citron`, `sudachi`, `Ryujinx`, `Cemu`, `Panda3DS`, `mgbaDev`, `melonDS`, `RMG`, `Lime3DS`, `mandarine`, `SkyEmu`, `GearBoy`, `bsnes` and `snes9x` from their respective repositories.
+The `update.sh` is a script to fetch and update `Dolphin Developer`, `Citron`, `sudachi`, `Ryujinx`, `Cemu`, `Panda3DS`, `mgbaDev`, `melonDS`, `RMG`, `Lime3DS`, `mandarine`, `SkyEmu`, `GearBoy`, `bsnes` and `snes9x` from their respective repositories.
 <details>
 	
   <summary>Some preliminary notes ⮧</summary>
