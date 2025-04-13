@@ -200,7 +200,7 @@ You can now open EmuDeck again and start installing extra programs you might nee
 
 - Step 7: Enjoy your TOTK experience on Deck :]
   
-> NOTE: the mods present in this repository are quite old, please use [TOTK-Optimizer](https://github.com/hoverbike1/TOTK-Mods-collection/releases) to update them with a new pack.
+> NOTE: the mods present in this repository are quite old, please use [TOTK-Optimizer](https://github.com/MaxLastBreath/nx-optimizer) to update them with a new pack.
 >
 > TIP: if you are updating the mods or is the first time you are using them, clean all your pipeline shaders from TOTK in the remove section of Yuzu when you right-click on the title.
 
@@ -217,9 +217,11 @@ You can now open EmuDeck again and start installing extra programs you might nee
 <details>
 	
   <summary>Modding and Romhacks ⮧</summary>
-
+  
+- Mods' places:
+	- https://www.nexusmods.com/
+ 	- https://gamebanana.com/
 - RomHacks' places:
-	- https://gamebanana.com/
 	- https://www.pokecommunity.com/
 	- https://romhackplaza.org/
 	- https://romhacking.com/
