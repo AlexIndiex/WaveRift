@@ -2,7 +2,7 @@
 <h1 align="center">
     	<a href="https://github.com/AlexIndiex/WaveRift" target="_blank"><img height="60%" width="60%" src="https://github.com/AlexIndiex/WaveRift/blob/main/assets/images/Alex%26Indie.png"><br></a>
     	<a href="https://discord.gg/H7T4HBGGH4" target="Discord"><img src="https://img.shields.io/badge/Discord-WaveRift-7289da?logo=discord&logoColor=white"></a>
-	<a href="https://discord.gg/EBqTb3AezX" target="Discord"><img src="https://img.shields.io/badge/Discord-EmulationHaven-7289da?logo=discord&logoColor=white"></a>
+	<a href="https://discord.gg/D5thkvwfYq" target="Discord"><img src="https://img.shields.io/badge/Discord-EmuHaven-7289da?logo=discord&logoColor=white"></a>
     	<a ><img src="https://img.shields.io/badge/License-BSD3-yellow.svg"><br></a>
 </h1>
 <h2 align="center"><b>A collection of guides, that range from an autofetcher, recommended peripheral hardware, to emulation and more...</b></h2>
