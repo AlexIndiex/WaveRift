@@ -34,12 +34,12 @@ function filter_fetched() {
     jq -r ".[].assets[] | select(.browser_download_url | test(\"$TYPE\")) | .browser_download_url"
 }
 
-function fetch_citron() {
-    mapfile -t urls < <(curl -s -H "Accept: application/vnd.github+json" -G -d 'per_page=1' https://api.github.com/repos/Samueru-sama/Citron-AppImage-test/releases | \
-            jq -r '[.[] | select(.tag_name == "nightly")][].assets[] | select(.browser_download_url | test("anylinux-x86_64_v3.AppImage")) | .browser_download_url')
+function fetch_ryujinx() {
+    mapfile -t urls < <(curl -s -H "Accept: application/json" -G -d 'per_page=1' https://git.ryujinx.app/api/v4/projects/68/releases | \
+            jq -r '.[].assets[] | select(.direct_asset_url | test("x64.AppImage")) | .direct_asset_url')
                     
     if [[ -z "${urls[0]}" ]]; then
-        notify_die 1 "Failed to fetch Citron download URL."
+        notify_die 1 "Failed to fetch Ryujinx download URL."
     fi
     
     echo "${urls[0]}"
@@ -71,14 +71,14 @@ function download_notify() {
     local TYPE
 
     case $APP_NAME in
-        Citron)
-            EXTENSION="AppImage"
-            url=$(fetch_citron)
-            ;;
         Ryujinx)
             EXTENSION="AppImage"
-            TYPE="x64"
-            REPO="Ryubing/Canary-Releases"
+            url=$(fetch_ryujinx)
+            ;;
+        Eden)
+            EXTENSION="AppImage"
+            TYPE="amd64-gcc-standard"
+            REPO="Eden-CI/Master"
             ;;
         Cemu)
             EXTENSION="AppImage"
@@ -163,7 +163,7 @@ function download_notify() {
 
         notify "Update successful: $APP_NAME"
         case $APP_NAME in
-            Cemu | DolphinDev | RMG | mGBAdev | snes9x | Citron | Ryujinx)
+            Cemu | DolphinDev | RMG | mGBAdev | snes9x | Eden | Ryujinx)
                 chmod +x "$APP_FOLDER/$FETCHED_FILE"
                 ;;
             Panda3DS | melonDS | SkyEmu)
@@ -203,7 +203,7 @@ flatpak update -y --noninteractive | sed -e '/Info\:/d' -e '/^$/d'
 # -------------------
 mkdir -p "$ROOT_APPS_FOLDER"
 pushd "$ROOT_APPS_FOLDER" || exit
-for APP in Ryujinx Citron sudachi Cemu Panda3DS DolphinDev RMG melonDS SkyEmu mGBAdev azahar gearboy bsnes snes9x mandarine; do
+for APP in Ryujinx Eden sudachi Cemu Panda3DS DolphinDev RMG melonDS SkyEmu mGBAdev azahar gearboy bsnes snes9x mandarine; do
     download_notify "$APP"
 done
 popd || exit
