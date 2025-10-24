@@ -12,13 +12,13 @@
 notify() { notify-send -a "Application Updater" "$1" && echo "$1"; }
 download_notify() {
         cd ~/Applications || exit
-        if [[ -f $(basename "${urls[0]}") ]] && [[ $1 != "Ryujinx" ]]  && [[ $1 != "Citron" ]] && [[ $1 != "sudachi" ]] && [[ $1 != "Cemu" ]] && [[ $1 != "Panda3DS" ]] && [[ $1 != "DolphinDev" ]] && [[ $1 != "RMG" ]] && [[ $1 != "melonDS" ]] && [[ $1 != "SkyEmu" ]] && [[ $1 != "mGBAdev" ]] && [[ $1 != "azahar" ]] && [[ $1 != "mandarine" ]] && [[ $1 != "gearboy" ]] && [[ $1 != "bsnes" ]] && [[ $1 != "snes9x" ]]; then
+        if [[ -f $(basename "${urls[0]}") ]] && [[ $1 != "Ryujinx" ]]  && [[ $1 != "Eden" ]] && [[ $1 != "sudachi" ]] && [[ $1 != "Cemu" ]] && [[ $1 != "Panda3DS" ]] && [[ $1 != "DolphinDev" ]] && [[ $1 != "RMG" ]] && [[ $1 != "melonDS" ]] && [[ $1 != "SkyEmu" ]] && [[ $1 != "mGBAdev" ]] && [[ $1 != "azahar" ]] && [[ $1 != "mandarine" ]] && [[ $1 != "gearboy" ]] && [[ $1 != "bsnes" ]] && [[ $1 != "snes9x" ]]; then
                 notify "Already up to date: $1"
         else
                 notify "Updating: $1"
                 case $1 in
-                        Citron)
-                                curl -L -o ~/Applications/Citron.AppImage -z ~/Applications/Citron.AppImage "${urls[0]}" && chmod +x ~/Applications/Citron.AppImage
+                        Eden)
+                                curl -L -o ~/Applications/Eden.AppImage -z ~/Applications/Eden.AppImage "${urls[0]}" && chmod +x ~/Applications/Eden.AppImage
                                 ;;
                         Ryujinx)
                                 curl -L -o ~/Applications/Ryujinx.AppImage -z ~/Applications/Ryujinx.AppImage "${urls[0]}" && chmod +x ~/Applications/Ryujinx.AppImage
@@ -73,16 +73,16 @@ download_notify() {
 notify "Flatpak updating"
 flatpak update -y --noninteractive | sed -e '/Info\:/d' -e '/^$/d'
 
-#Citron
+#Eden
 #------------
-mapfile -t urls < <(curl -s -H "Accept: application/vnd.github+json" -G -d 'per_page=1' https://api.github.com/repos/Samueru-sama/Citron-AppImage-test/releases | \
-        jq -r '[.[] | select(.tag_name == "nightly")][].assets[] | select(.browser_download_url | test("anylinux-x86_64_v3.AppImage")) | .browser_download_url')
-download_notify Citron
+mapfile -t urls < <(curl -s -H "Accept: application/vnd.github+json" -G -d 'per_page=1' https://api.github.com/repos/Eden-CI/Master/releases | \
+        jq -r '.[].assets[] | select(.browser_download_url | test("amd64-gcc-standard.AppImage")) | .browser_download_url')
+download_notify Eden
 
 #Ryujinx
 #------------
-mapfile -t urls < <(curl -s -H "Accept: application/vnd.github+json" -G -d 'per_page=1' https://api.github.com/repos/Ryubing/Canary-Releases/releases | \
-        jq -r '.[].assets[] | select(.browser_download_url | test("x64.AppImage")) | .browser_download_url')
+mapfile -t urls < <(curl -s -H "Accept: application/json" -G -d 'per_page=1' https://git.ryujinx.app/api/v4/projects/68/releases | \
+        jq -r '.[].assets[] | select(.direct_asset_url | test("x64.AppImage")) | .direct_asset_url')
 download_notify Ryujinx
 
 #Cemu
