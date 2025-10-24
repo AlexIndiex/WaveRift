@@ -31,14 +31,14 @@ download_notify() {
     local file_name
     
     case $app_name in
-        Citron)
-            mapfile -t urls < <(curl -s -H "Accept: application/vnd.github+json" -G -d 'per_page=1' https://api.github.com/repos/Samueru-sama/Citron-AppImage-test/releases | \
-                    jq -r '[.[] | select(.tag_name == "nightly")][].assets[] | select(.browser_download_url | test("anylinux-x86_64_v3.AppImage")) | .browser_download_url')
-            file_name="Citron.AppImage"
+        Eden)
+            mapfile -t urls < <(curl -s -H "Accept: application/vnd.github+json" -G -d 'per_page=1' https://api.github.com/repos/Eden-CI/Master/releases | \
+                    jq -r '.[].assets[] | select(.browser_download_url | test("amd64-gcc-standard.AppImage")) | .browser_download_url')
+            file_name="Eden.AppImage"
             ;;
         Ryujinx)
-            mapfile -t url < <(curl -s -H "Accept: application/vnd.github+json" -G -d 'per_page=1' https://api.github.com/repos/Ryubing/Canary-Releases/releases | \
-                    jq -r '.[].assets[] | select(.browser_download_url | test("x64.AppImage")) | .browser_download_url')
+            mapfile -t urls < <(curl -s -H "Accept: application/json" -G -d 'per_page=1' https://git.ryujinx.app/api/v4/projects/68/releases | \
+                    jq -r '.[].assets[] | select(.direct_asset_url | test("x64.AppImage")) | .direct_asset_url')
             file_name="Ryujinx.AppImage"
             ;;
         Cemu)
@@ -123,7 +123,7 @@ download_notify() {
             notify "Update successful: $app_name"
             # Extract and set permissions
             case $app_name in
-                Cemu | DolphinDev | RMG | mGBAdev | snes9x | Citron | Ryujinx)
+                Cemu | DolphinDev | RMG | mGBAdev | snes9x | Eden | Ryujinx)
                     chmod +x "$HOME/Apps/$file_name"
                     ;;
                 Panda3DS | melonDS | SkyEmu)
@@ -167,7 +167,7 @@ flatpak update -y --noninteractive | sed -e '/Info\:/d' -e '/^$/d'
 # Update applications
 # -------------------
 download_notify Cemu
-download_notify Citron
+download_notify Eden
 download_notify Ryujinx
 download_notify sudachi
 download_notify Panda3DS
